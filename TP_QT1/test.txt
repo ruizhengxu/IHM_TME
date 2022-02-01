@@ -1,0 +1,7 @@
+Android Studio
+Spring boot + MySQL
+Vue.js
+JavaScript
+JQuery + underscore
+Electron
+WebSocket

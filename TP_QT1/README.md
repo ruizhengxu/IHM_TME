@@ -11,3 +11,5 @@ Les fonctionnalités implémentées :
 - Ouvrir un fichier .txt ou .html
 - Sauvegarder le contenu de l'éditeur dans un fichier .txt ou .html
 - Couper, copier, coller à travers des icons dans la barre d'outil
+- Changer la taille, la famille, la couleur du texte
+- Gras, italique, souligné, surligner les textes

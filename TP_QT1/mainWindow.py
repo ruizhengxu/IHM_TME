@@ -1,6 +1,6 @@
 import sys, resources
 
-from functools import partial
+from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
@@ -27,16 +27,18 @@ class MainWindow(QMainWindow):
         super().__init__(None)
         self.initUI()
         self.createAction()
+        self.createWidgets()
         self.initMenuBar()
         self.initStatusBar()
         self.initToolBar()
-        self.textEdit = QTextEdit()
-        self.setCentralWidget(self.textEdit)
     
     def initUI(self):
-        self.setWindowTitle('File Editor')
+        self.setWindowTitle('newFile.txt')
         self.center()
         self.show()
+        
+        self.textEdit = QTextEdit()
+        self.setCentralWidget(self.textEdit)
     
     def createAction(self):
         # Create different actions
@@ -75,6 +77,51 @@ class MainWindow(QMainWindow):
         self.quitAct.setToolTip("Quit File")
         self.quitAct.setStatusTip("Quit Application")
         self.quitAct.triggered.connect(self.quitFile)
+        
+        self.fontFamilyAct = QAction(QIcon(":/images/font_family.png"), "Font family", self)
+        
+        self.fontSizeAct = QAction(QIcon(":/images/font_size.png"), "Font size", self)
+        
+        self.fontColorAct = QAction(QIcon(":/images/font_color.png"), "Font color", self)
+        self.fontColorAct.triggered.connect(self.fontColor)
+        
+        self.highlightAct = QAction(QIcon(":/images/highlight.png"), "Highlight", self)
+        self.highlightAct.triggered.connect(self.highlight)
+        
+        self.fontBoldAct = QAction(QIcon(":/images/bold.png"), "Bold", self)
+        self.fontBoldAct.setShortcut(QKeySequence("Ctrl+B"))
+        self.fontBoldAct.setToolTip("Bold")
+        self.fontBoldAct.setStatusTip("Bold")
+        self.fontBoldAct.triggered.connect(self.bold)
+        
+        self.fontItalicAct = QAction(QIcon(":/images/italic.png"), "Italic", self)
+        self.fontItalicAct.setShortcut(QKeySequence("Ctrl+I"))
+        self.fontItalicAct.setToolTip("Italic")
+        self.fontItalicAct.setStatusTip("Italic")
+        self.fontItalicAct.triggered.connect(self.italic)
+        
+        self.fontUnderlineAct = QAction(QIcon(":/images/underline.png"), "Underline", self)
+        self.fontUnderlineAct.setShortcut(QKeySequence("Ctrl+U"))
+        self.fontUnderlineAct.setToolTip("Underline")
+        self.fontUnderlineAct.setStatusTip("Underline")
+        self.fontUnderlineAct.triggered.connect(self.underline)
+        
+    def createWidgets(self):
+        self.fontBox = QFontComboBox(self)
+        self.fontBox.currentFontChanged.connect(self.fontFamily)
+        
+        self.fontSizeBox = QComboBox(self)
+        self.fontSizeBox.setEditable(True)
+        # Minimum number of chars displayed
+        self.fontSizeBox.setMinimumContentsLength(3)
+        self.fontSizeBox.activated.connect(self.fontSize)
+        # Typical font sizes
+        fontSizes = ['6','7','8','9','10','11','12','13','14',
+                    '15','16','18','20','22','24','26','28',
+                    '32','36','40','44','48','54','60','66',
+                    '72','80','88','96']
+        for i in fontSizes:
+            self.fontSizeBox.addItem(i)
     
     def initMenuBar(self):
         self.menuBar = self.menuBar()
@@ -83,6 +130,7 @@ class MainWindow(QMainWindow):
         
         fileMenu.addAction(self.openAct) # Add action to "File" menu
         fileMenu.addAction(self.saveAct)
+        fileMenu.addSeparator()
         fileMenu.addAction(self.quitAct)
         
     def initStatusBar(self):
@@ -93,6 +141,17 @@ class MainWindow(QMainWindow):
         editToolBar.addAction(self.cutAct)
         editToolBar.addAction(self.copyAct)
         editToolBar.addAction(self.pasteAct)
+        fontToolBar = self.addToolBar("Font")
+        fontToolBar.addAction(self.fontFamilyAct)
+        fontToolBar.addWidget(self.fontBox)
+        fontToolBar.addAction(self.fontSizeAct)
+        fontToolBar.addWidget(self.fontSizeBox)
+        fontToolBar.addAction(self.fontColorAct)
+        fontToolBar.addAction(self.highlightAct)
+        fontToolBar.addSeparator()
+        fontToolBar.addAction(self.fontBoldAct)
+        fontToolBar.addAction(self.fontItalicAct)
+        fontToolBar.addAction(self.fontUnderlineAct)
       
     def openFile(self):
         fileName = QFileDialog.getOpenFileName(self, "Open File", "", "Text files (*.txt *.html)")[0]
@@ -119,17 +178,12 @@ class MainWindow(QMainWindow):
                 f.write(self.textEdit.toPlainText())
             self.statusBar.showMessage("Saved to " + fileName, 6000)
             f.close()
-    
-    def getSelectTextPos(self):
-        cursor = self.textEdit.textCursor()
-        start = int(cursor.selectionStart())
-        end = int(cursor.selectionEnd())
-        return start, end
         
     def cut(self):
         clipboard = QApplication.clipboard()
-        s, e = self.getSelectTextPos()
-        selectedText = self.textEdit.toPlainText()[s:e]
+        cursor = self.textEdit.textCursor()
+        s, e = cursor.position(), cursor.position() + len(cursor.selectedText())
+        selectedText = cursor.selectedText()
         if selectedText != "":
             clipboard.setText(selectedText)
             curText = self.textEdit.toPlainText()
@@ -137,11 +191,13 @@ class MainWindow(QMainWindow):
                 self.textEdit.setHtml(curText[0:s] + curText[e:len(curText)])
             else:
                 self.textEdit.setPlainText(curText[0:s] + curText[e:len(curText)])
-            self.textEdit.moveCursor(QTextCursor.position(s))
+            cursor.setPosition(s)
+            self.textEdit.setTextCursor(cursor)
            
     def copy(self):
         clipboard = QApplication.clipboard()
-        s, e = self.getSelectTextPos()
+        cursor = self.textEdit.textCursor()
+        s, e = cursor.position(), cursor.position() + len(cursor.selectedText())
         if self.windowTitle().split(".")[1] == "html":
             selectedText = self.textEdit.toHtml()[s:e]
         else:
@@ -154,7 +210,37 @@ class MainWindow(QMainWindow):
             self.textEdit.insertHtml(clipboard.text())
         else:
             self.textEdit.insertPlainText(clipboard.text())
+    
+    def fontFamily(self,font):
+      self.textEdit.setCurrentFont(font)
+ 
+    def fontSize(self):
+        self.textEdit.setFontPointSize(int(self.fontSizeBox.currentText()))
+    
+    def fontColor(self):
+        # Get a color from the text dialog
+        color = QColorDialog.getColor()
+        # Set it as the new text color
+        self.textEdit.setTextColor(color)
+    
+    def highlight(self):
+        color = QColorDialog.getColor()
+        self.textEdit.setTextBackgroundColor(color)
+
+    def bold(self):
+        if self.textEdit.fontWeight() == QFont.Bold: 
+            self.textEdit.setFontWeight(QFont.Normal)
+        else:
+            self.textEdit.setFontWeight(QFont.Bold)
         
+    def italic(self):
+        state = self.textEdit.fontItalic()
+        self.textEdit.setFontItalic(not state)
+    
+    def underline(self):
+        state = self.textEdit.fontUnderline()
+        self.textEdit.setFontUnderline(not state)
+    
     def quitFile(self):
         response = QMessageBox.question(self, "Confirm exit", 
                                         "Are you sure you want to exit ?")

@@ -7,6 +7,13 @@
     <file>images/paste.png</file>
     <file>images/quit.png</file>
     <file>images/save.png</file>
+    <file>images/font_family.png</file>
+    <file>images/font_size.png</file>
+    <file>images/font_color.png</file>
+    <file>images/highlight.png</file>
+    <file>images/bold.png</file>
+    <file>images/italic.png</file>
+    <file>images/underline.png</file>
   </qresource>
 </RCC>
 

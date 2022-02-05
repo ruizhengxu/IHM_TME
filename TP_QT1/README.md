@@ -2,9 +2,9 @@
 
 Implémentation d'un éditeur de texte avec PyQT5.
 
-Pour re-compiler le fichier resources.qrc en resources.py :
+Pour lancer :
 ```
-pyrcc5 -o resources.py resources.qrc
+python mainWindow.py
 ```
 
 Les fonctionnalités implémentées :
@@ -13,3 +13,10 @@ Les fonctionnalités implémentées :
 - Couper, copier, coller à travers des icons dans la barre d'outil
 - Changer la taille, la famille, la couleur du texte
 - Gras, italique, souligné, surligner les textes
+
+-------
+
+Pour re-compiler le fichier resources.qrc en resources.py :
+```
+pyrcc5 -o resources.py resources.qrc
+```

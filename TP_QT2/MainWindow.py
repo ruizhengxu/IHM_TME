@@ -60,9 +60,13 @@ class MainWindow(QMainWindow):
     ##############
     def pen_color(self):
         self.log_action("choose pen color")
+        color = QColorDialog.getColor()
+        self.canvas.set_pen_color(color)
 
     def brush_color(self):
         self.log_action("choose brush color")
+        color = QColorDialog.getColor()
+        self.canvas.set_brush_color(color)
 
     def rectangle(self):
         self.log_action("Shape mode: rectangle")
@@ -78,12 +82,15 @@ class MainWindow(QMainWindow):
 
     def move(self):
         self.log_action("Mode: move")
+        print(self.canvas.list_elems)
 
     def draw(self):
         self.log_action("Mode: draw")
+        self.canvas.set_drawing(True)
 
     def select(self):
         self.log_action("Mode: select")
+        self.canvas.set_drawing(False)
 
     def log_action(self, str):
         content = self.textEdit.toPlainText()

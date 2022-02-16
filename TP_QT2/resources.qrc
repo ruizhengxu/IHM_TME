@@ -15,6 +15,7 @@
     <file>icons/move.png</file>
     <file>icons/draw.png</file>
     <file>icons/select.png</file>
+    <file>icons/lasso.png</file>
     <file>icons/zoom-in.png</file>
     <file>icons/zoom-out.png</file>
   </qresource>

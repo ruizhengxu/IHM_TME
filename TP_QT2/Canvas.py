@@ -1,3 +1,4 @@
+from select import select
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -19,9 +20,19 @@ class Canvas(QWidget):
         
         self.move_canvas = False
         self.offset_x, self.offset_y = 0, 0
+        self.scale = 1
+        
         self.drawing = True
         self.draw_mode = Shape.FREE
+        
+        self.select = False
+        self.selected_shape = None
+        
+        self.lasso = False
+        self.lasso_poly = QPolygon()
+        
         self.pen_color = Qt.black
+        self.pen_width = 2
         self.brush_color = Qt.transparent
         
         self.begin = QPoint()
@@ -29,11 +40,25 @@ class Canvas(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.translate(QPoint(self.offset_x, self.offset_y))
+        painter.scale(self.scale, self.scale)
+        
+        if self.lasso and self.lasso_poly.count() != 0: 
+            pen = QPen(Qt.gray)
+            pen.setStyle(Qt.DashLine)
+            pen.setWidth(2)
+            painter.setPen(pen)
+            painter.drawPolygon(self.lasso_poly)
         
         for i, elem in enumerate(self.list_elems):
-            pen_brush = self.list_properties[i]
-            painter.setPen(QPen(pen_brush[0]))
-            painter.setBrush(QBrush(pen_brush[1]))
+            properties = self.list_properties[i]
+            pen = QPen(properties[0])
+            pen.setWidth(properties[1])
+            brush = QBrush(properties[2])
+            if i == self.selected_shape:
+                pen.setStyle(Qt.DashLine)
+            
+            painter.setPen(pen)
+            painter.setBrush(brush)
             if type(elem) == list:
                 for pt in elem:
                     painter.drawLine(pt)
@@ -45,22 +70,36 @@ class Canvas(QWidget):
                 painter.drawEllipse(elem)
         
     def mousePressEvent(self, event):
-        # print("Mouse clicked at :", event.pos())
         self.begin = event.pos()
+        # LASSO
+        if self.lasso and Qt.LeftButton and self.lasso_poly.count() != 0:
+            self.lasso_poly.clear()
+        # SELECT
+        if self.select and Qt.LeftButton:
+            for i in range(len(self.list_elems)-1, -1, -1):
+                shape = self.list_elems[i]
+                if type(shape) != list and shape.contains(self.begin):
+                    self.selected_shape = i
+                    break
+        # DRAW
         if self.drawing and self.draw_mode != None and Qt.LeftButton:
-            self.list_properties.append((self.pen_color, self.brush_color))
+            self.list_properties.append([self.pen_color, self.pen_width, self.brush_color])
             if self.draw_mode == Shape.FREE:
                 self.list_elems.append([])
             else:
                 self.list_elems.append(None)
-            self.update()
+        
+        self.update()
     
     def mouseMoveEvent(self, event):
-        # print("Mouse moved at :", event.pos())
+        # LASSO
+        if self.lasso and Qt.LeftButton:
+            self.lasso_poly.append(event.pos())
+        # MOVE
         if self.move_canvas and Qt.LeftButton:
             self.offset_x += int((event.pos().x() - self.begin.x())/15) # /15 to move slower
             self.offset_y += int((event.pos().y() - self.begin.y())/15)
-            self.update()
+        # DRAW
         elif self.drawing and self.draw_mode != None and Qt.LeftButton:
             if self.draw_mode == Shape.FREE:
                 tmp = self.list_elems[self.list_size]
@@ -88,12 +127,17 @@ class Canvas(QWidget):
                                 event.pos().x() - self.begin.x(), event.pos().y() - self.begin.y())
                 self.list_elems[self.list_size] = ellipse
             self.end = event.pos()
-            self.update()
+        
+        self.update()
         
     def mouseReleaseEvent(self, event):
-        # print("Mouse released at :", event.pos())
+        # LASSO
+        if self.lasso and self.lasso_poly != [] and Qt.LeftButton:
+            for elem in self.list_elems:
+                if type(elem) != list:
+                    print(self.lasso_poly.contains(elem))
+        # DRAW
         if self.drawing and self.draw_mode != None and Qt.LeftButton:
-            print(self.list_elems)
             self.list_size += 1
             self.update()
             
@@ -111,38 +155,46 @@ class Canvas(QWidget):
             self.list_elems.remove(last_elem)
             self.list_size -= 1
         self.update()
-
-    def add_object(self):
-        print("add object")
         
     def set_mode(self, mode):
         if mode == Mode.MOVE:
             QApplication.setOverrideCursor(Qt.SizeAllCursor)
             self.move_canvas = True
             self.drawing = False
+            self.select = False
+            self.selected_shape = None
+            self.lasso = False
         elif mode == Mode.DRAW:
-            QApplication.restoreOverrideCursor()
+            QApplication.setOverrideCursor(Qt.ArrowCursor)
             self.drawing = True
             self.move_canvas = False
+            self.select = False
+            self.selected_shape = None
+            self.lasso = False
             self.update_elems()
             self.offset_x, self.offset_y = 0, 0
         elif mode == Mode.SELECT:
+            QApplication.setOverrideCursor(Qt.ArrowCursor)
+            self.move_canvas = False
+            self.drawing = False
+            self.select = True
+            self.lasso = False
+        elif mode == Mode.LASSO:
             QApplication.setOverrideCursor(Qt.CrossCursor)
             self.move_canvas = False
             self.drawing = False
+            self.select = False
+            self.selected_shape = None
+            self.lasso = True
+        self.update()
         
     def update_elems(self):
         for elem in self.list_elems:
-            elem.translate(self.offset_x, self.offset_y)
-    
-    def set_move(self, move):
-        self.move = move
-        QApplication.setOverrideCursor(Qt.SizeAllCursor)
-        if move: self.drawing = False
-        
-    def set_drawing(self, drawing):
-        QApplication.restoreOverrideCursor()
-        self.drawing = drawing
+            if type(elem) == list:
+                for e in elem:
+                    e.translate(self.offset_x, self.offset_y)    
+            else:
+                elem.translate(self.offset_x, self.offset_y)
         
     def set_shape(self, shape):
         self.draw_mode = shape
@@ -151,7 +203,15 @@ class Canvas(QWidget):
     def set_pen_color(self, color ):
         print("set pen color")
         self.pen_color = color
+        if self.select and self.selected_shape != None:
+            property = self.list_properties[self.selected_shape]
+            property[0] = color
+            self.list_properties[self.selected_shape] = property
         
     def set_brush_color(self, color ):
         print("set brush color")
         self.brush_color = color
+        if self.select and self.selected_shape != None:
+            property = self.list_properties[self.selected_shape]
+            property[2] = color
+            self.list_properties[self.selected_shape] = property

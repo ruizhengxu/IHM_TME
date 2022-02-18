@@ -1,7 +1,8 @@
-from select import select
+import pickle, math
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+from zmq import SHARED
 from Enum import *
 
 class Canvas(QWidget):
@@ -30,9 +31,10 @@ class Canvas(QWidget):
         
         self.lasso = False
         self.lasso_poly = QPolygon()
+        self.lasso_selected_shape = []
         
         self.pen_color = Qt.black
-        self.pen_width = 2
+        self.pen_width = 5
         self.brush_color = Qt.transparent
         
         self.begin = QPoint()
@@ -54,7 +56,7 @@ class Canvas(QWidget):
             pen = QPen(properties[0])
             pen.setWidth(properties[1])
             brush = QBrush(properties[2])
-            if i == self.selected_shape:
+            if i == self.selected_shape or i in self.lasso_selected_shape:
                 pen.setStyle(Qt.DashLine)
             
             painter.setPen(pen)
@@ -74,16 +76,22 @@ class Canvas(QWidget):
         # LASSO
         if self.lasso and Qt.LeftButton and self.lasso_poly.count() != 0:
             self.lasso_poly.clear()
+            self.lasso_selected_shape.clear()
         # SELECT
         if self.select and Qt.LeftButton:
             for i in range(len(self.list_elems)-1, -1, -1):
                 shape = self.list_elems[i]
-                if type(shape) != list and shape.contains(self.begin):
+                if type(shape) == QLine:
+                    if self.line_contains_point(shape, self.begin): self.selected_shape = i
+                elif type(shape) == list:
+                    for l in shape:
+                        if self.line_contains_point(l, self.begin): self.selected_shape = i
+                elif type(shape) != list and shape.contains(self.begin):
                     self.selected_shape = i
                     break
         # DRAW
         if self.drawing and self.draw_mode != None and Qt.LeftButton:
-            self.list_properties.append([self.pen_color, self.pen_width, self.brush_color])
+            self.list_properties.append([self.pen_color, self.pen_width, self.brush_color, self.draw_mode])
             if self.draw_mode == Shape.FREE:
                 self.list_elems.append([])
             else:
@@ -133,13 +141,42 @@ class Canvas(QWidget):
     def mouseReleaseEvent(self, event):
         # LASSO
         if self.lasso and self.lasso_poly != [] and Qt.LeftButton:
-            for elem in self.list_elems:
-                if type(elem) != list:
-                    print(self.lasso_poly.contains(elem))
+            self.lasso_poly.append(event.pos())
+            for i, elem in enumerate(self.list_elems):
+                if type(elem) == QLine:
+                    p1, p2, pc = elem.p1(), elem.p2(), elem.center()
+                    if self.poly_contains_point([p1, p2, pc]):
+                        self.lasso_selected_shape.append(i)
+                elif type(elem) == list:
+                    for l in elem:
+                        p1, p2, pc = l.p1(), l.p2(), l.center()
+                        if self.poly_contains_point([p1, p2, pc]):
+                            self.lasso_selected_shape.append(i)
+                            break
+                else:
+                    tl, tr, bl, br = elem.topLeft(), elem.topRight(), elem.bottomLeft(), elem.bottomRight()
+                    if type(elem) == QRectF:
+                        tl, tr, bl, br = tl.toPoint(), tr.toPoint(), bl.toPoint(), br.toPoint()
+                    if self.poly_contains_point([tl, tr, bl, br]):
+                        self.lasso_selected_shape.append(i)
         # DRAW
         if self.drawing and self.draw_mode != None and Qt.LeftButton:
             self.list_size += 1
-            self.update()
+        
+        self.update()
+        
+    def line_contains_point(self, line : QLine, pt : QPoint) -> bool:
+        a, b = line.p1(), line.p2()
+        dis_a_pt = int(math.sqrt((a.x() - pt.x())**2 + (a.y() - pt.y())**2))
+        dis_pt_b = int(math.sqrt((pt.x() - b.x())**2 + (pt.y() - b.y())**2))
+        dis_a_b = int(math.sqrt((a.x() - b.x())**2 + (a.y() - b.y())**2))
+        return dis_a_pt + dis_pt_b == dis_a_b
+    
+    def poly_contains_point(self, l_pt : list):
+        for pt in l_pt:
+            if self.lasso_poly.containsPoint(pt, Qt.OddEvenFill): return True
+        return False
+            
             
     def erase(self, all=False):
         if self.list_size == 0:
@@ -164,6 +201,7 @@ class Canvas(QWidget):
             self.select = False
             self.selected_shape = None
             self.lasso = False
+            self.lasso_poly.clear()
         elif mode == Mode.DRAW:
             QApplication.setOverrideCursor(Qt.ArrowCursor)
             self.drawing = True
@@ -171,6 +209,8 @@ class Canvas(QWidget):
             self.select = False
             self.selected_shape = None
             self.lasso = False
+            self.lasso_poly.clear()
+            self.lasso_selected_shape.clear()
             self.update_elems()
             self.offset_x, self.offset_y = 0, 0
         elif mode == Mode.SELECT:
@@ -179,6 +219,8 @@ class Canvas(QWidget):
             self.drawing = False
             self.select = True
             self.lasso = False
+            self.lasso_poly.clear()
+            self.lasso_selected_shape.clear()
         elif mode == Mode.LASSO:
             QApplication.setOverrideCursor(Qt.CrossCursor)
             self.move_canvas = False
@@ -199,19 +241,73 @@ class Canvas(QWidget):
     def set_shape(self, shape):
         self.draw_mode = shape
         print(self.draw_mode)
+        
+    def change_shape_property(self, prop, index_shape, index_prop):
+        property = self.list_properties[index_shape]
+        property[index_prop] = prop
+        self.list_properties[index_shape] = property
 
     def set_pen_color(self, color ):
         print("set pen color")
         self.pen_color = color
         if self.select and self.selected_shape != None:
-            property = self.list_properties[self.selected_shape]
-            property[0] = color
-            self.list_properties[self.selected_shape] = property
+            self.change_shape_property(color, self.selected_shape, 0)
+        if self.lasso and len(self.lasso_selected_shape) != 0:
+            for i in self.lasso_selected_shape: self.change_shape_property(color, i, 0)
         
     def set_brush_color(self, color ):
         print("set brush color")
         self.brush_color = color
         if self.select and self.selected_shape != None:
-            property = self.list_properties[self.selected_shape]
-            property[2] = color
-            self.list_properties[self.selected_shape] = property
+            self.change_shape_property(color, self.selected_shape, 2)
+        if self.lasso and len(self.lasso_selected_shape) != 0:
+            for i in self.lasso_selected_shape: self.change_shape_property(color, i, 2)
+            
+    def get_drawing(self):
+        drawing = []
+        for i in range(self.list_size):
+            elem = self.list_elems[i]
+            if type(elem) == list:
+                tmp = [(l.x1(), l.y1(), l.x2(), l.y2()) for l in elem]
+                drawing.append([tmp, self.list_properties[i]])
+            elif type(elem) == QLine:
+                drawing.append([(elem.x1(), elem.y1(), elem.x2(), elem.y2()), self.list_properties[i]])
+            else:
+                drawing.append([elem.getCoords(), self.list_properties[i]])
+        return drawing
+            
+    def load_canvas(self, file_name):
+        try:
+            with open(file_name, "rb") as fp:
+                data = pickle.load(fp)
+            
+            self.list_elems.clear()
+            self.list_properties.clear()
+            self.list_size = 0
+            for d in data:
+                coordinates = d[0]
+                prop = d[1]
+                if prop[3] == Shape.FREE:
+                    self.list_elems.append([QLine(QPoint(c[0], c[1]), QPoint(c[2], c[3])) for c in coordinates])
+                elif prop[3] == Shape.LINE:
+                    self.list_elems.append(QLine(QPoint(coordinates[0], coordinates[1]), QPoint(coordinates[2], coordinates[3])))
+                elif prop[3] == Shape.RECT:
+                    self.list_elems.append(QRect(coordinates[0], coordinates[1], 
+                                                 coordinates[2]-coordinates[0], coordinates[3]-coordinates[1]))
+                else:
+                    self.list_elems.append(QRectF(coordinates[0], coordinates[1], 
+                                                  coordinates[2]-coordinates[0], coordinates[3]-coordinates[1]))
+                self.list_properties.append(prop)
+                self.list_size += 1
+            self.update()
+            return 1
+        except:
+            return 0
+            
+    def save_canvas(self, file_name):
+        data = self.get_drawing()
+        try:
+            with open(file_name, "wb") as fp:
+                pickle.dump(data, fp)
+        except:
+            return 0

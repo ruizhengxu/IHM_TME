@@ -1,5 +1,5 @@
 import sys
-from datetime import date
+from datetime import datetime
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -21,6 +21,8 @@ class MainWindow(QMainWindow):
                          int(screen.size().height()/2)-int(HEIGHT/2), 
                          WIDTH, HEIGHT)
         
+        self.file_name = ""
+        
         self.v_layout = QVBoxLayout()
         self.textEdit = QTextEdit()
         self.textEdit.setMaximumHeight(int(HEIGHT/10))
@@ -33,6 +35,9 @@ class MainWindow(QMainWindow):
 
         bar = self.menuBar()
         fileMenu = bar.addMenu("File")
+        openAct = fileMenu.addAction(QIcon(":/images/open.png"), "&Open File", self.open_file, QKeySequence("Ctrl+O"))
+        saveAct = fileMenu.addAction(QIcon(":/images/save.png"), "&Save File", self.save_file, QKeySequence("Ctrl+S"))
+        quitAct = fileMenu.addAction(QIcon(":/images/quit.png"), "&Quit", self.quit, QKeySequence("Ctrl+Q"))
 
         colorMenu = bar.addMenu("Color")
         actPen = colorMenu.addAction(QIcon(":/icons/pen.png"), "&Pen color", self.pen_color, QKeySequence("Ctrl+P"))
@@ -90,10 +95,38 @@ class MainWindow(QMainWindow):
         toolsToolBar.addAction( actZoomOut )
         
         self.log_action("==============================\n"\
-                        "Application launched at " + str(date.today().strftime("%B %d, %Y")))
+                        "Application launched at " + str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 
 
     ##############
+    def open_file(self):
+        file_name = QFileDialog.getOpenFileName(self, "Open File")[0]
+        if file_name != "":
+            res = self.canvas.load_canvas(file_name)
+            if res:
+                self.log_action("File opened : " + file_name)
+                self.file_name = file_name
+            else:
+                self.log_action("Tried to open invalid file : " + file_name)
+    
+    def save_file(self):
+        if self.file_name != "":
+            self.canvas.save_canvas(self.file_name)
+            self.log_action("File saved : " + self.file_name)
+        else:
+            file_name = QFileDialog.getSaveFileName(self, "Save File")[0]
+            if file_name != "":
+                self.canvas.save_canvas(file_name)
+                self.file_name = file_name
+            self.log_action("File saved : " + file_name)
+        
+    def quit(self):
+        response = QMessageBox.question(self, "Confirm exit", 
+                                        "Are you sure you want to exit ?")
+        if response == QMessageBox.Yes:
+            sys.exit()
+        return response
+    
     def pen_color(self):
         color = QColorDialog.getColor()
         self.canvas.set_pen_color(color)
@@ -162,6 +195,13 @@ class MainWindow(QMainWindow):
         
         with open(LOG_FNAME, "a+") as f:
             f.write(str + "\n")
+            
+    def closeEvent(self, event):
+        response = self.quit()
+        if response == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 if __name__=="__main__":
     app = QApplication(sys.argv)

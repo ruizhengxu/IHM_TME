@@ -33,3 +33,301 @@ Mode: lasso
 Application launched at February 16, 2022
 Shape Mode: rectangle
 Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Mode: lasso
+Shape Mode: rectangle
+==============================
+Application launched at February 16, 2022
+Mode: select
+Mode: draw
+Mode: move
+Mode: lasso
+Mode: draw
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Shape Mode: cercle
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Shape Mode: cercle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Shape Mode: rectangle
+Shape Mode: cercle
+Mode: lasso
+==============================
+Application launched at February 16, 2022
+Brush Color :(122, 255, 118, 255)
+Pen Color :(27, 255, 18, 255)
+Shape Mode: cercle
+Mode: move
+Shape Mode: cercle
+Mode: select
+Shape Mode: cercle
+==============================
+Application launched at February 18, 2022
+Shape Mode: rectangle
+Mode: lasso
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+Shape Mode: rectangle
+Shape Mode: cercle
+Shape Mode: ellipse
+Shape Mode: line
+Shape Mode: free drawing
+==============================
+Application launched at February 18, 2022
+Shape Mode: rectangle
+Shape Mode: free drawing
+Shape Mode: line
+==============================
+Application launched at February 18, 2022
+Shape Mode: ellipse
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+Shape Mode: rectangle
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+Shape Mode: rectangle
+==============================
+Application launched at February 18, 2022
+Shape Mode: rectangle
+Shape Mode: line
+Shape Mode: free drawing
+Shape Mode: cercle
+==============================
+Application launched at February 18, 2022
+Shape Mode: line
+Shape Mode: cercle
+Shape Mode: rectangle
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+==============================
+Application launched at February 18, 2022
+Tried to open invalid file : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at February 18, 2022
+Tried to open invalid file : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at February 18, 2022
+Tried to open invalid file : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at February 18, 2022
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at February 18, 2022
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at February 18, 2022
+Shape Mode: cercle
+Shape Mode: ellipse
+File saved : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+==============================
+Application launched at February 18, 2022
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+==============================
+Application launched at February 18, 2022
+Shape Mode: cercle
+Shape Mode: rectangle
+File saved : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at February 18, 2022
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at February 18, 2022
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at 18/02/2022 17:17:50
+==============================
+Application launched at 18/02/2022 17:42:56
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+Mode: lasso
+==============================
+Application launched at 18/02/2022 17:43:25
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+Mode: lasso
+==============================
+Application launched at 18/02/2022 17:45:22
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+Mode: lasso
+Mode: select
+==============================
+Application launched at 18/02/2022 17:46:19
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+Mode: lasso
+==============================
+Application launched at 18/02/2022 17:51:39
+==============================
+Application launched at 18/02/2022 17:52:01
+==============================
+Application launched at 18/02/2022 17:52:19
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+Mode: lasso
+Pen Color :(255, 216, 140, 255)
+==============================
+Application launched at 18/02/2022 17:53:41
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+Mode: lasso
+Pen Color :(255, 157, 86, 255)
+File saved : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at 18/02/2022 17:54:45
+==============================
+Application launched at 18/02/2022 17:55:42
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:04:08
+Shape Mode: line
+Mode: lasso
+==============================
+Application launched at 18/02/2022 18:04:29
+Mode: lasso
+Shape Mode: line
+Mode: draw
+Mode: lasso
+==============================
+Application launched at 18/02/2022 18:06:57
+Shape Mode: line
+Mode: lasso
+==============================
+Application launched at 18/02/2022 18:07:27
+Shape Mode: line
+Mode: lasso
+Mode: select
+==============================
+Application launched at 18/02/2022 18:07:54
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:19:49
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:20:27
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:21:20
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:22:21
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:22:53
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:23:47
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:27:56
+Shape Mode: line
+Mode: select
+==============================
+Application launched at 18/02/2022 18:28:29
+Shape Mode: line
+Mode: select
+Pen Color :(255, 90, 67, 255)
+==============================
+Application launched at 18/02/2022 18:29:11
+Mode: select
+Pen Color :(255, 58, 35, 255)
+==============================
+Application launched at 18/02/2022 20:11:41
+Shape Mode: line
+Mode: lasso
+==============================
+Application launched at 18/02/2022 20:12:04
+Mode: lasso
+Mode: draw
+Shape Mode: line
+Mode: lasso
+==============================
+Application launched at 18/02/2022 20:13:21
+Mode: lasso
+Pen Color :(255, 93, 46, 255)
+Shape Mode: line
+Mode: draw
+Mode: lasso

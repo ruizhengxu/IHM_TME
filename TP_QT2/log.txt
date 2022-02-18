@@ -331,3 +331,61 @@ Pen Color :(255, 93, 46, 255)
 Shape Mode: line
 Mode: draw
 Mode: lasso
+==============================
+Application launched at 18/02/2022 20:22:07
+==============================
+Application launched at 18/02/2022 20:28:11
+==============================
+Application launched at 18/02/2022 20:36:31
+==============================
+Application launched at 18/02/2022 20:36:51
+==============================
+Application launched at 18/02/2022 20:37:30
+==============================
+Application launched at 18/02/2022 20:38:34
+==============================
+Application launched at 18/02/2022 20:38:42
+==============================
+Application launched at 18/02/2022 20:41:47
+==============================
+Application launched at 18/02/2022 20:42:02
+==============================
+Application launched at 18/02/2022 20:43:53
+Pen Width :3
+Pen Width :4
+Pen Width :5
+Pen Width :6
+Pen Width :7
+Pen Width :8
+==============================
+Application launched at 18/02/2022 20:44:55
+Pen Width :9
+Pen Width :1
+Pen Width :3
+==============================
+Application launched at 18/02/2022 20:53:12
+Brush Color :(0, 0, 0, 255)
+==============================
+Application launched at 18/02/2022 20:54:46
+Pen Width :12
+==============================
+Application launched at 18/02/2022 20:55:44
+==============================
+Application launched at 18/02/2022 20:56:09
+==============================
+Application launched at 18/02/2022 20:56:33
+Pen Width :9
+==============================
+Application launched at 18/02/2022 20:58:03
+Pen Width : 9
+Pen Width : 12
+==============================
+Application launched at 18/02/2022 20:58:31
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+Pen Width : 18
+Pen Width : 4
+Pen Width : 2
+File saved : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at 18/02/2022 20:59:13
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test

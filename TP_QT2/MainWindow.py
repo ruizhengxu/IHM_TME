@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(int(screen.size().width()/2)-int(WIDTH/2),
                          int(screen.size().height()/2)-int(HEIGHT/2), 
                          WIDTH, HEIGHT)
-        
+
         self.file_name = ""
         
         self.v_layout = QVBoxLayout()
@@ -41,11 +41,27 @@ class MainWindow(QMainWindow):
 
         colorMenu = bar.addMenu("Color")
         actPen = colorMenu.addAction(QIcon(":/icons/pen.png"), "&Pen color", self.pen_color, QKeySequence("Ctrl+P"))
+        actPenWidth = colorMenu.addAction(QIcon(":/icons/pen_width.png"), "&Pen width")
+        pen_vbox = QVBoxLayout()
+        self.pen_width_value = QLabel("2")
+        self.pen_width_slider = QSlider(Qt.Horizontal)
+        self.pen_width_slider.setMinimum(1)
+        self.pen_width_slider.setMaximum(18)
+        self.pen_width_slider.setValue(2)
+        self.pen_width_slider.valueChanged.connect(self.pen_width_show)
+        self.pen_width_slider.sliderReleased.connect(self.set_pen_width)
+        pen_vbox.addWidget(self.pen_width_slider)
+        pen_vbox.addWidget(self.pen_width_value)
+        pen_vbox.setAlignment(self.pen_width_value, Qt.AlignCenter)
+        container = QWidget()
+        container.setLayout(pen_vbox)
         actBrush = colorMenu.addAction(QIcon(":/icons/brush.png"), "&Brush color", self.brush_color, QKeySequence("Ctrl+B"))
 
         colorToolBar = QToolBar("Color")
         self.addToolBar( colorToolBar )
         colorToolBar.addAction( actPen )
+        colorToolBar.addAction( actPenWidth )
+        colorToolBar.addWidget(container)
         colorToolBar.addAction( actBrush )
         
         eraseMenu = bar.addMenu("Eraser")
@@ -106,6 +122,7 @@ class MainWindow(QMainWindow):
             if res:
                 self.log_action("File opened : " + file_name)
                 self.file_name = file_name
+                self.windowTitle = self.file_name
             else:
                 self.log_action("Tried to open invalid file : " + file_name)
     
@@ -131,6 +148,15 @@ class MainWindow(QMainWindow):
         color = QColorDialog.getColor()
         self.canvas.set_pen_color(color)
         self.log_action("Pen Color :" + str(color.getRgb()))
+        
+    def pen_width_show(self):
+        self.pen_width_value.setText(str(self.pen_width_slider.value()))
+        
+    def set_pen_width(self):
+        width = self.pen_width_slider.value()
+        self.canvas.set_pen_width(width)
+        self.log_action("Pen Width : " + str(width))
+        
 
     def brush_color(self):
         color = QColorDialog.getColor()

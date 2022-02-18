@@ -246,6 +246,9 @@ class Canvas(QWidget):
         property = self.list_properties[index_shape]
         property[index_prop] = prop
         self.list_properties[index_shape] = property
+        
+    def set_pen_width(self, width):
+        self.pen_width = width
 
     def set_pen_color(self, color ):
         print("set pen color")

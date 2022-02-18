@@ -389,3 +389,125 @@ File saved : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
 ==============================
 Application launched at 18/02/2022 20:59:13
 File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/test
+==============================
+Application launched at 18/02/2022 21:15:17
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom out
+Tool: zoom out
+Tool: zoom out
+Application termianted at 18/02/2022 21:15:25
+==============================
+
+==============================
+Application launched at 18/02/2022 21:15:32
+Tool: zoom in
+Tool: zoom in
+Application termianted at 18/02/2022 21:15:41
+==============================
+
+==============================
+Application launched at 18/02/2022 21:16:05
+Tool: zoom out
+Tool: zoom out
+Tool: zoom out
+Tool: zoom in
+Tool: zoom in
+Tool: zoom out
+Tool: zoom out
+Mode: move
+Mode: draw
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Mode: draw
+Application termianted at 18/02/2022 21:16:33
+==============================
+
+==============================
+Application launched at 18/02/2022 21:18:02
+Mode: move
+Mode: lasso
+Application termianted at 18/02/2022 21:18:13
+==============================
+
+==============================
+Application launched at 18/02/2022 21:18:25
+Mode: move
+Mode: lasso
+Application termianted at 18/02/2022 21:18:34
+==============================
+
+==============================
+Application launched at 18/02/2022 21:27:15
+Tool: zoom out
+Tool: zoom out
+Mode: move
+Mode: draw
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Mode: draw
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Mode: draw
+Application termianted at 18/02/2022 21:27:44
+==============================
+
+==============================
+Application launched at 18/02/2022 21:28:25
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Mode: draw
+Application termianted at 18/02/2022 21:28:33
+==============================
+
+==============================
+Application launched at 18/02/2022 21:28:47
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Mode: draw
+Application termianted at 18/02/2022 21:28:58
+==============================
+
+==============================
+Application launched at 18/02/2022 21:29:16
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Mode: draw
+==============================
+Application launched at 18/02/2022 21:29:47
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Tool: zoom in
+Mode: draw
+Application termianted at 18/02/2022 21:29:59
+==============================
+
+==============================
+Application launched at 18/02/2022 21:37:34
+Application termianted at 18/02/2022 21:37:39
+==============================
+

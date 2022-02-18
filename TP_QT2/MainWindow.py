@@ -53,15 +53,15 @@ class MainWindow(QMainWindow):
         pen_vbox.addWidget(self.pen_width_slider)
         pen_vbox.addWidget(self.pen_width_value)
         pen_vbox.setAlignment(self.pen_width_value, Qt.AlignCenter)
-        container = QWidget()
-        container.setLayout(pen_vbox)
+        pen_width_container = QWidget()
+        pen_width_container.setLayout(pen_vbox)
         actBrush = colorMenu.addAction(QIcon(":/icons/brush.png"), "&Brush color", self.brush_color, QKeySequence("Ctrl+B"))
 
         colorToolBar = QToolBar("Color")
         self.addToolBar( colorToolBar )
         colorToolBar.addAction( actPen )
         colorToolBar.addAction( actPenWidth )
-        colorToolBar.addWidget(container)
+        colorToolBar.addWidget(pen_width_container)
         colorToolBar.addAction( actBrush )
         
         eraseMenu = bar.addMenu("Eraser")
@@ -141,6 +141,8 @@ class MainWindow(QMainWindow):
         response = QMessageBox.question(self, "Confirm exit", 
                                         "Are you sure you want to exit ?")
         if response == QMessageBox.Yes:
+            self.log_action("Application termianted at " + str(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))\
+                    + "\n==============================\n")
             sys.exit()
         return response
     
@@ -156,7 +158,6 @@ class MainWindow(QMainWindow):
         width = self.pen_width_slider.value()
         self.canvas.set_pen_width(width)
         self.log_action("Pen Width : " + str(width))
-        
 
     def brush_color(self):
         color = QColorDialog.getColor()
@@ -165,54 +166,58 @@ class MainWindow(QMainWindow):
         
     def erase_last(self):
         self.canvas.erase()
+        self.log_action("Erase last shape")
     
     def erase_all(self):
         response = QMessageBox.question(self, "Confirm erase", 
                                         "Are you sure you want to erase all figures ?")
         if response == QMessageBox.Yes:
             self.canvas.erase(all=True)
+            self.log_action("Erase All")
 
     def free_drawing(self):
-        self.log_action("Shape Mode: free drawing")
         self.canvas.set_shape(Shape.FREE)
+        self.log_action("Shape Mode: free drawing")
         
     def line(self):
-        self.log_action("Shape Mode: line")
         self.canvas.set_shape(Shape.LINE)
+        self.log_action("Shape Mode: line")
         
     def rectangle(self):
-        self.log_action("Shape Mode: rectangle")
         self.canvas.set_shape(Shape.RECT)
+        self.log_action("Shape Mode: rectangle")
 
     def cercle(self):
-        self.log_action("Shape Mode: cercle")
         self.canvas.set_shape(Shape.CERCLE)
+        self.log_action("Shape Mode: cercle")
 
     def ellipse(self):
-        self.log_action("Shape Mode: ellipse")
         self.canvas.set_shape(Shape.ELLIPSE)
+        self.log_action("Shape Mode: ellipse")
 
     def move(self):
-        self.log_action("Mode: move")
         self.canvas.set_mode(Mode.MOVE)
+        self.log_action("Mode: move")
 
     def draw(self):
-        self.log_action("Mode: draw")
         self.canvas.set_mode(Mode.DRAW)
+        self.log_action("Mode: draw")
         
     def select(self):
-        self.log_action("Mode: select")
         self.canvas.set_mode(Mode.SELECT)
+        self.log_action("Mode: select")
         
     def lasso(self):
-        self.log_action("Mode: lasso")
         self.canvas.set_mode(Mode.LASSO)
+        self.log_action("Mode: lasso")
         
-    def zoom_in(self):
-        self.log_action("Tool: zoom in")
-    
     def zoom_out(self):
-        self.log_action("Tool: zoom out")
+        self.canvas.zoom(-0.1)
+        # self.log_action("Tool: zoom in")
+    
+    def zoom_in(self):
+        self.canvas.zoom(0.1)
+        # self.log_action("Tool: zoom out")
         
     def log_action(self, str):
         content = self.textEdit.toPlainText()

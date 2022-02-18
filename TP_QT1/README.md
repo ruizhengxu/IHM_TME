@@ -20,3 +20,8 @@ Pour re-compiler le fichier resources.qrc en resources.py :
 ```
 pyrcc5 -o resources.py resources.qrc
 ```
+
+---
+Auteur : 
+- XU Ruizheng - 21111473
+---

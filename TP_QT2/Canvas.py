@@ -1,9 +1,13 @@
 import pickle, math
+from shutil import move
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from zmq import SHARED
 from Enum import *
+
+DEFAULT_SCALE = 1
+DEFAULT_OFFSET = 0
 
 class Canvas(QWidget):
 
@@ -20,8 +24,8 @@ class Canvas(QWidget):
         self.list_size = 0
         
         self.move_canvas = False
-        self.offset_x, self.offset_y = 0, 0
-        self.scale = 1
+        self.offset_x, self.offset_y = DEFAULT_OFFSET, DEFAULT_OFFSET
+        self.scale = DEFAULT_SCALE
         
         self.drawing = True
         self.draw_mode = Shape.FREE
@@ -177,7 +181,6 @@ class Canvas(QWidget):
             if self.lasso_poly.containsPoint(pt, Qt.OddEvenFill): return True
         return False
             
-            
     def erase(self, all=False):
         if self.list_size == 0:
             return
@@ -202,6 +205,8 @@ class Canvas(QWidget):
             self.selected_shape = None
             self.lasso = False
             self.lasso_poly.clear()
+            self.update_elems(zoom=True)
+            self.scale = DEFAULT_SCALE
         elif mode == Mode.DRAW:
             QApplication.setOverrideCursor(Qt.ArrowCursor)
             self.drawing = True
@@ -211,8 +216,9 @@ class Canvas(QWidget):
             self.lasso = False
             self.lasso_poly.clear()
             self.lasso_selected_shape.clear()
-            self.update_elems()
-            self.offset_x, self.offset_y = 0, 0
+            self.update_elems(move=True, zoom=True)
+            self.offset_x, self.offset_y = DEFAULT_OFFSET, DEFAULT_OFFSET
+            self.scale = DEFAULT_SCALE
         elif mode == Mode.SELECT:
             QApplication.setOverrideCursor(Qt.ArrowCursor)
             self.move_canvas = False
@@ -221,6 +227,9 @@ class Canvas(QWidget):
             self.lasso = False
             self.lasso_poly.clear()
             self.lasso_selected_shape.clear()
+            self.update_elems(move=True, zoom=True)
+            self.offset_x, self.offset_y = DEFAULT_OFFSET, DEFAULT_OFFSET
+            self.scale = DEFAULT_SCALE
         elif mode == Mode.LASSO:
             QApplication.setOverrideCursor(Qt.CrossCursor)
             self.move_canvas = False
@@ -228,15 +237,34 @@ class Canvas(QWidget):
             self.select = False
             self.selected_shape = None
             self.lasso = True
+            self.update_elems(move=True, zoom=True)
+            self.offset_x, self.offset_y = DEFAULT_OFFSET, DEFAULT_OFFSET
+            self.scale = DEFAULT_SCALE
         self.update()
         
-    def update_elems(self):
-        for elem in self.list_elems:
-            if type(elem) == list:
-                for e in elem:
-                    e.translate(self.offset_x, self.offset_y)    
-            else:
-                elem.translate(self.offset_x, self.offset_y)
+    def update_elems(self, move=False, zoom=False):
+        if move:
+            for elem in self.list_elems:
+                if type(elem) == list:
+                    for e in elem:
+                        e.translate(self.offset_x, self.offset_y)
+                else:
+                    elem.translate(self.offset_x, self.offset_y)
+        if zoom:
+            for i, elem in enumerate(self.list_elems):
+                if type(elem) == list:
+                    self.list_elems[i] = [QLine(QPoint(int(l.x1()*self.scale), int(l.y1()*self.scale)),
+                                                QPoint(int(l.x2()*self.scale), int(l.y2()*self.scale))) for l in elem]
+                    self.list_properties[i][1] = int(self.list_properties[i][1] * self.scale)
+                else:
+                    coordinates = elem.getCoords()
+                    self.list_elems[i] = elem.adjusted(coordinates[0]*(1-self.scale), coordinates[1]*(1-self.scale),
+                                                       coordinates[2]*(1-self.scale), coordinates[3]*(1-self.scale))
+                    self.list_properties[i][1] = int(self.list_properties[i][1] * self.scale)
+        
+    def zoom(self, scale):
+        self.scale += scale
+        self.update()
         
     def set_shape(self, shape):
         self.draw_mode = shape

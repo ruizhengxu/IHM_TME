@@ -12,7 +12,7 @@ DEFAULT_OFFSET = 0
 class Canvas(QWidget):
 
     def __init__(self, parent = None):
-        print("class Canvas")
+        # print("class Canvas")
         QWidget.__init__(self, parent)
         # self.setMinimumSize(WIDTH, HEIGHT)
         self.setAttribute(Qt.WA_StyledBackground, True)
@@ -66,8 +66,7 @@ class Canvas(QWidget):
             painter.setPen(pen)
             painter.setBrush(brush)
             if type(elem) == list:
-                for pt in elem:
-                    painter.drawLine(pt)
+                painter.drawPolyline(QPolygon(elem))
             elif type(elem) == QLine:
                 painter.drawLine(elem)
             elif type(elem) == QRect:
@@ -86,13 +85,18 @@ class Canvas(QWidget):
             for i in range(len(self.list_elems)-1, -1, -1):
                 shape = self.list_elems[i]
                 if type(shape) == QLine:
-                    if self.line_contains_point(shape, self.begin): self.selected_shape = i
+                    if self.line_contains_point(shape, self.begin):
+                        self.selected_shape = i
+                        break
                 elif type(shape) == list:
-                    for l in shape:
-                        if self.line_contains_point(l, self.begin): self.selected_shape = i
-                elif type(shape) != list and shape.contains(self.begin):
-                    self.selected_shape = i
-                    break
+                    for j in range(len(shape)-1):
+                        if self.line_contains_point(QLine(shape[j], shape[j+1]), self.begin): 
+                            self.selected_shape = i
+                            break
+                else:
+                    if shape.contains(self.begin):
+                        self.selected_shape = i
+                        break
         # DRAW
         if self.drawing and self.draw_mode != None and Qt.LeftButton:
             self.list_properties.append([self.pen_color, self.pen_width, self.brush_color, self.draw_mode])
@@ -114,14 +118,8 @@ class Canvas(QWidget):
         # DRAW
         elif self.drawing and self.draw_mode != None and Qt.LeftButton:
             if self.draw_mode == Shape.FREE:
-                tmp = self.list_elems[self.list_size]
-                new_point = QPoint(event.pos().x(), event.pos().y())
-                if len(tmp) != 0:
-                    last_point = tmp[len(tmp)-1].p2()
-                else: 
-                    last_point = new_point
-                line = QLine(last_point, new_point)
-                self.list_elems[self.list_size].append(line)
+                pt = QPoint(event.pos().x(), event.pos().y())
+                self.list_elems[self.list_size].append(pt)
             elif self.draw_mode == Shape.LINE:
                 line = QLine(self.begin, event.pos())
                 self.list_elems[self.list_size] = line
@@ -148,15 +146,11 @@ class Canvas(QWidget):
             self.lasso_poly.append(event.pos())
             for i, elem in enumerate(self.list_elems):
                 if type(elem) == QLine:
-                    p1, p2, pc = elem.p1(), elem.p2(), elem.center()
-                    if self.poly_contains_point([p1, p2, pc]):
+                    if self.poly_contains_point(self.get_all_points_from_lines(elem)):
                         self.lasso_selected_shape.append(i)
                 elif type(elem) == list:
-                    for l in elem:
-                        p1, p2, pc = l.p1(), l.p2(), l.center()
-                        if self.poly_contains_point([p1, p2, pc]):
-                            self.lasso_selected_shape.append(i)
-                            break
+                    if self.poly_contains_point(elem):
+                        self.lasso_selected_shape.append(i)
                 else:
                     tl, tr, bl, br = elem.topLeft(), elem.topRight(), elem.bottomLeft(), elem.bottomRight()
                     if type(elem) == QRectF:
@@ -169,7 +163,13 @@ class Canvas(QWidget):
         
         self.update()
         
-    def line_contains_point(self, line : QLine, pt : QPoint) -> bool:
+    def get_all_points_from_lines(self, line: QLine):
+        a, b = line.p1(), line.p2()
+        slope = None if a.x() == b.x() else (b.y() - a.y())/(b.x() - a.x())
+        intercept =  a.x() if slope == None else a.y() - slope * a.x()
+        return [QPoint(x, int(slope * x + intercept)) for x in range(a.x(), b.x())]
+        
+    def line_contains_point(self, line : QLine, pt : QPoint):
         a, b = line.p1(), line.p2()
         dis_a_pt = int(math.sqrt((a.x() - pt.x())**2 + (a.y() - pt.y())**2))
         dis_pt_b = int(math.sqrt((pt.x() - b.x())**2 + (pt.y() - b.y())**2))
@@ -247,20 +247,27 @@ class Canvas(QWidget):
             for elem in self.list_elems:
                 if type(elem) == list:
                     for e in elem:
-                        e.translate(self.offset_x, self.offset_y)
+                        e.setX(e.x() + self.offset_x)
+                        e.setY(e.y() + self.offset_y)
                 else:
                     elem.translate(self.offset_x, self.offset_y)
         if zoom:
             for i, elem in enumerate(self.list_elems):
                 if type(elem) == list:
-                    self.list_elems[i] = [QLine(QPoint(int(l.x1()*self.scale), int(l.y1()*self.scale)),
-                                                QPoint(int(l.x2()*self.scale), int(l.y2()*self.scale))) for l in elem]
-                    self.list_properties[i][1] = int(self.list_properties[i][1] * self.scale)
+                    self.list_elems[i] = [QPoint(int(p.x()*self.scale), int(p.y()*self.scale)) for p in elem]
                 else:
-                    coordinates = elem.getCoords()
-                    self.list_elems[i] = elem.adjusted(coordinates[0]*(1-self.scale), coordinates[1]*(1-self.scale),
-                                                       coordinates[2]*(1-self.scale), coordinates[3]*(1-self.scale))
-                    self.list_properties[i][1] = int(self.list_properties[i][1] * self.scale)
+                    if type(elem) == QLine:
+                        l = self.list_elems[i]
+                        self.list_elems[i] = QLine(QPoint(int(l.x1()*self.scale), int(l.y1()*self.scale)),
+                                                   QPoint(int(l.x2()*self.scale), int(l.y2()*self.scale)),)
+                    else:
+                        coordinates = elem.getCoords()
+                        x, y, w, h = coordinates[0]*(self.scale), coordinates[1]*(self.scale),\
+                                     (coordinates[2]-coordinates[0])*(self.scale),\
+                                     (coordinates[3]-coordinates[1])*(self.scale)
+                        if type(elem) == QRect: x, y, w, h = int(x), int(y), int(w)+1, int(h)+1
+                        self.list_elems[i].setRect(x, y, w, h)
+                self.list_properties[i][1] = int(self.list_properties[i][1] * self.scale) # Change width after scaling
         
     def zoom(self, scale):
         self.scale += scale
@@ -299,8 +306,7 @@ class Canvas(QWidget):
         for i in range(self.list_size):
             elem = self.list_elems[i]
             if type(elem) == list:
-                tmp = [(l.x1(), l.y1(), l.x2(), l.y2()) for l in elem]
-                drawing.append([tmp, self.list_properties[i]])
+                drawing.append([elem, self.list_properties[i]])
             elif type(elem) == QLine:
                 drawing.append([(elem.x1(), elem.y1(), elem.x2(), elem.y2()), self.list_properties[i]])
             else:
@@ -311,20 +317,23 @@ class Canvas(QWidget):
         try:
             with open(file_name, "rb") as fp:
                 data = pickle.load(fp)
-            
+
             self.list_elems.clear()
             self.list_properties.clear()
             self.list_size = 0
+            self.selected_shape = None
+            self.lasso_poly = QPolygon()
+            self.lasso_selected_shape = []
             for d in data:
                 coordinates = d[0]
                 prop = d[1]
                 if prop[3] == Shape.FREE:
-                    self.list_elems.append([QLine(QPoint(c[0], c[1]), QPoint(c[2], c[3])) for c in coordinates])
+                    self.list_elems.append([c for c in coordinates])
                 elif prop[3] == Shape.LINE:
                     self.list_elems.append(QLine(QPoint(coordinates[0], coordinates[1]), QPoint(coordinates[2], coordinates[3])))
                 elif prop[3] == Shape.RECT:
                     self.list_elems.append(QRect(coordinates[0], coordinates[1], 
-                                                 coordinates[2]-coordinates[0], coordinates[3]-coordinates[1]))
+                                                 coordinates[2]-coordinates[0]+1, coordinates[3]-coordinates[1]+1))
                 else:
                     self.list_elems.append(QRectF(coordinates[0], coordinates[1], 
                                                   coordinates[2]-coordinates[0], coordinates[3]-coordinates[1]))

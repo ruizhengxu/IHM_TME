@@ -511,3 +511,396 @@ Application launched at 18/02/2022 21:37:34
 Application termianted at 18/02/2022 21:37:39
 ==============================
 
+==============================
+Application launched at 18/02/2022 21:42:50
+Pen Width : 14
+Application termianted at 18/02/2022 21:43:14
+==============================
+
+==============================
+Application launched at 18/02/2022 21:43:32
+==============================
+Application launched at 18/02/2022 21:43:44
+==============================
+Application launched at 18/02/2022 21:43:56
+Pen Width : 16
+Application termianted at 18/02/2022 21:44:08
+==============================
+
+==============================
+Application launched at 18/02/2022 21:46:10
+Pen Width : 18
+==============================
+Application launched at 18/02/2022 21:47:16
+File saved : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Erase All
+Tried to open invalid file : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Application termianted at 18/02/2022 21:47:35
+==============================
+
+==============================
+Application launched at 18/02/2022 21:47:44
+Tried to open invalid file : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Application termianted at 18/02/2022 21:48:08
+==============================
+
+==============================
+Application launched at 18/02/2022 21:48:26
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Application termianted at 18/02/2022 21:48:32
+==============================
+
+==============================
+Application launched at 18/02/2022 21:48:49
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+==============================
+Application launched at 18/02/2022 21:50:23
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+==============================
+Application launched at 18/02/2022 21:51:16
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: move
+==============================
+Application launched at 18/02/2022 21:51:47
+Shape Mode: rectangle
+Shape Mode: free drawing
+==============================
+Application launched at 18/02/2022 21:52:29
+Shape Mode: rectangle
+Shape Mode: ellipse
+Mode: select
+Mode: draw
+Shape Mode: free drawing
+Shape Mode: line
+==============================
+Application launched at 18/02/2022 21:55:56
+Shape Mode: line
+Shape Mode: rectangle
+Shape Mode: cercle
+File saved : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: move
+Mode: draw
+Shape Mode: free drawing
+Erase last shape
+Mode: move
+Mode: draw
+Mode: move
+Application termianted at 18/02/2022 21:56:46
+==============================
+
+==============================
+Application launched at 18/02/2022 21:58:46
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: draw
+Application termianted at 18/02/2022 21:58:59
+==============================
+
+==============================
+Application launched at 18/02/2022 21:59:47
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: draw
+Application termianted at 18/02/2022 21:59:56
+==============================
+
+==============================
+Application launched at 18/02/2022 22:00:18
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: draw
+Mode: draw
+Application termianted at 18/02/2022 22:00:32
+==============================
+
+==============================
+Application launched at 18/02/2022 22:00:47
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: draw
+Application termianted at 18/02/2022 22:01:00
+==============================
+
+==============================
+Application launched at 18/02/2022 22:01:56
+Shape Mode: rectangle
+Mode: move
+Application termianted at 18/02/2022 22:02:21
+==============================
+
+==============================
+Application launched at 18/02/2022 22:02:23
+Shape Mode: rectangle
+Mode: move
+Application termianted at 18/02/2022 22:02:53
+==============================
+
+==============================
+Application launched at 18/02/2022 22:02:56
+Shape Mode: rectangle
+Shape Mode: line
+Mode: move
+Application termianted at 18/02/2022 22:03:08
+==============================
+
+==============================
+Application launched at 18/02/2022 22:03:50
+Shape Mode: rectangle
+Mode: move
+Application termianted at 18/02/2022 22:03:57
+==============================
+
+==============================
+Application launched at 18/02/2022 22:04:54
+Shape Mode: rectangle
+Mode: move
+Application termianted at 18/02/2022 22:05:02
+==============================
+
+==============================
+Application launched at 18/02/2022 22:05:08
+Shape Mode: rectangle
+Mode: move
+Application termianted at 18/02/2022 22:05:18
+==============================
+
+==============================
+Application launched at 18/02/2022 22:05:56
+Shape Mode: rectangle
+Mode: move
+Shape Mode: cercle
+Mode: draw
+Mode: draw
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+Mode: draw
+Mode: move
+Mode: draw
+Mode: move
+Mode: lasso
+==============================
+Application launched at 18/02/2022 22:09:05
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+Mode: lasso
+==============================
+Application launched at 18/02/2022 22:10:45
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: lasso
+Pen Color :(255, 175, 166, 255)
+Pen Color :(228, 255, 69, 255)
+Application termianted at 18/02/2022 22:11:11
+==============================
+
+==============================
+Application launched at 18/02/2022 22:11:44
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: lasso
+Pen Color :(255, 105, 141, 255)
+Pen Color :(124, 96, 255, 255)
+Application termianted at 18/02/2022 22:12:09
+==============================
+
+==============================
+Application launched at 18/02/2022 22:13:00
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+Application termianted at 18/02/2022 22:13:25
+==============================
+
+==============================
+Application launched at 18/02/2022 22:15:31
+Shape Mode: free drawing
+Mode: select
+Application termianted at 18/02/2022 22:16:04
+==============================
+
+==============================
+Application launched at 18/02/2022 22:16:09
+Mode: select
+Application termianted at 18/02/2022 22:16:41
+==============================
+
+==============================
+Application launched at 18/02/2022 22:16:55
+Mode: select
+Application termianted at 18/02/2022 22:17:07
+==============================
+
+==============================
+Application launched at 18/02/2022 22:17:55
+Shape Mode: free drawing
+Mode: select
+Mode: move
+Mode: draw
+Application termianted at 18/02/2022 22:18:11
+==============================
+
+==============================
+Application launched at 18/02/2022 22:18:23
+Mode: select
+Application termianted at 18/02/2022 22:18:36
+==============================
+
+==============================
+Application launched at 18/02/2022 22:19:12
+Mode: select
+Pen Color :(255, 79, 100, 255)
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Application termianted at 18/02/2022 22:19:31
+==============================
+
+==============================
+Application launched at 18/02/2022 22:20:34
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: draw
+Mode: move
+Mode: draw
+Mode: select
+Mode: draw
+Mode: move
+Mode: draw
+Mode: select
+Mode: draw
+Mode: move
+Application termianted at 18/02/2022 22:20:55
+==============================
+
+==============================
+Application launched at 18/02/2022 22:21:45
+Shape Mode: rectangle
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Application termianted at 18/02/2022 22:22:06
+==============================
+
+==============================
+Application launched at 18/02/2022 22:22:20
+Erase last shape
+Shape Mode: rectangle
+Mode: select
+Application termianted at 18/02/2022 22:22:44
+==============================
+
+==============================
+Application launched at 18/02/2022 22:23:03
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: move
+Mode: move
+Mode: move
+Mode: move
+Mode: move
+Mode: move
+Mode: move
+Mode: move
+Application termianted at 18/02/2022 22:23:12
+==============================
+
+==============================
+Application launched at 18/02/2022 22:23:27
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Mode: draw
+Application termianted at 18/02/2022 22:23:35
+==============================
+
+==============================
+Application launched at 18/02/2022 22:26:02
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: draw
+Mode: draw
+Mode: draw
+Application termianted at 18/02/2022 22:26:11
+==============================
+
+==============================
+Application launched at 18/02/2022 22:26:16
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Application termianted at 18/02/2022 22:26:24
+==============================
+
+==============================
+Application launched at 18/02/2022 22:26:34
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Shape Mode: ellipse
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: select
+Mode: draw
+Mode: draw
+Application termianted at 18/02/2022 22:26:42
+==============================
+
+==============================
+Application launched at 18/02/2022 22:26:51
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: move
+Mode: lasso
+Application termianted at 18/02/2022 22:27:07
+==============================
+
+==============================
+Application launched at 18/02/2022 22:34:09
+Shape Mode: line
+Mode: lasso
+Application termianted at 18/02/2022 22:34:20
+==============================
+
+==============================
+Application launched at 18/02/2022 22:34:40
+Shape Mode: line
+Mode: lasso
+Application termianted at 18/02/2022 22:35:00
+==============================
+
+==============================
+Application launched at 18/02/2022 22:35:50
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: lasso
+==============================
+Application launched at 18/02/2022 22:36:40
+File opened : /Users/ruizheng/M1S2/IHM/IHM_TME/TP_QT2/a
+Mode: lasso
+Application termianted at 18/02/2022 22:36:50
+==============================
+

@@ -180,7 +180,10 @@ class MainWindow(QMainWindow):
     def stop_trial(self):
         selected_target = self.canvas.selected_target
         print("target vs. selected target: "+ str(self.pos_target) +  " vs. " + str(selected_target) )
-        self.content += str(self.participant_id) + "," + str(self.trial_id) + "," + str(self.block_id) + "," + str(self.condition) + "," + str(self.mat_size) + "," + str(self.pos_target) + ","  + str(selected_target) + "," + str(time()-self.start) + "\n"
+        self.content += str(self.participant_id) + "," + str(self.trial_id) + "," + \
+                        str(self.block_id) + "," + str(self.condition) + "," +\
+                        str(self.mat_size) + "," + str(self.pos_target) + ","  +\
+                        str(selected_target) + "," + str(time()-self.start) + "\n"
         self.start = None
 
         ####################

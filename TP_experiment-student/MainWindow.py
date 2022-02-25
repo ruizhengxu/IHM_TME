@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
         ###############################
         #         MAIN VARIABLES      #
         ###############################
-        self.experiment_design_file_name = "./experiment.csv"
+        self.experiment_design_file_name = "./experiment2.csv"
         self.experiment_name = ""
         self.participant_id  =-1
         self.block_id        = 0

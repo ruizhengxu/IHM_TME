@@ -29,7 +29,7 @@ class OneDollar(object):
     def recognize(self, points):
         resampled_points = self.resample(points, numPoints)
         self.resampled_gesture = resampled_points
-        # resampled_points = self.rotateToZero(resampled_points)
+        resampled_points = self.rotateToZero(resampled_points)
         resampled_points = self.scaleToSquare(resampled_points)
         resampled_points = self.translateToOrigin(resampled_points)
         
